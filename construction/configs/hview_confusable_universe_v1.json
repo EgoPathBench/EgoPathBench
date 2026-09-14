@@ -1,0 +1,89 @@
+{
+  "schema_version": "hview_confusable_universe_v1",
+  "same_type_modes": [
+    "family_proxy",
+    "canonical_category"
+  ],
+  "default_same_type_mode": "family_proxy",
+  "supported_only_uniqueness_witness": true,
+  "require_visible_for_uniqueness_witness": true,
+  "hard_input_sources": [
+    "next_view_bundle_v3.visible_objects",
+    "layout.json",
+    "metadata.json"
+  ],
+  "audit_only_inputs": [
+    "visible_objects.json",
+    "rgb.png",
+    "object_index.png",
+    "object_index_map.json",
+    "depth.png"
+  ],
+  "forbidden_gate_sources": [
+    "routing_candidates",
+    "task_outputs.classification.views[*]",
+    "legacy_same_type_key",
+    "legacy_human_visible_uniqueness"
+  ],
+  "cross_type_confuser_map": {
+    "chair": [
+      "ottoman"
+    ],
+    "couch": [
+      "ottoman"
+    ],
+    "table": [
+      "desk"
+    ],
+    "desk": [
+      "table"
+    ],
+    "cabinet": [
+      "dresser",
+      "shelf"
+    ],
+    "dresser": [
+      "cabinet"
+    ],
+    "shelf": [
+      "cabinet"
+    ]
+  },
+  "anchor_confuser_map": {
+    "table": [
+      "desk"
+    ],
+    "desk": [
+      "table"
+    ],
+    "cabinet": [
+      "dresser",
+      "shelf"
+    ],
+    "dresser": [
+      "cabinet"
+    ],
+    "shelf": [
+      "cabinet"
+    ]
+  },
+  "partial_visibility_rules": {
+    "supported_requires_raycast_verified": true,
+    "partial_or_not_reliable_are_uncertain": true
+  },
+  "confuser_thresholds": {
+    "max_screen_linf_distance": 0.35,
+    "max_depth_delta_m": 1.5,
+    "min_size_ratio": 0.5,
+    "max_size_ratio": 2.0
+  },
+  "consistency_check": {
+    "bundle_visible_objects_must_match_audit_visible_objects": true
+  },
+  "trusted_relation_types": [
+    "near",
+    "on",
+    "inside",
+    "under"
+  ]
+}

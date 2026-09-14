@@ -1,0 +1,1 @@
+The PDF is the exact author-selected version (SHA-256: 782662583f77b0f90b8599a56e3d0c75e6cf6916858be03cc9e4a4c7928a32a0). Corresponding LaTeX source and arXiv submission are pending. The scripts directory contains the research asset builder, which requires the original workspace results and is not needed for public benchmark scoring.

@@ -1,0 +1,311 @@
+{
+  "schema_version": "c_main_vnext_candidate_ontology_v1",
+  "scope": "proposal_only",
+  "benchmark_track": "c_main_vnext_pilot",
+  "selection_policy": {
+    "base_families_kept": [
+      "sit_rest",
+      "wash_clean",
+      "discard",
+      "store_put_away",
+      "place_object"
+    ],
+    "candidate_new_families": [
+      "lighting_control",
+      "exit_transition",
+      "plant_care",
+      "laundry_cleaning",
+      "self_appearance",
+      "warmth_seek",
+      "cooking_appliance"
+    ],
+    "single_target_evaluable_required": true,
+    "embodied_route_required": true,
+    "default_route_source_task": "b2",
+    "default_route_semantics": "embodied"
+  },
+  "families": {
+    "lighting_control": {
+      "priority": "tier_a",
+      "status": "recommended_for_pilot",
+      "allowed_categories": [
+        "light",
+        "lamp",
+        "chandelier"
+      ],
+      "forbidden_categories": [
+        "mirror",
+        "window",
+        "picture"
+      ],
+      "intent_labels": [
+        "turn_on_light",
+        "switch_on_lamp",
+        "turn_on_ceiling_light"
+      ],
+      "question_templates": [
+        "I need some light.",
+        "I need a bit more light over here.",
+        "I could use a little more light here."
+      ],
+      "safe_category_question_templates": {
+        "lamp": [
+          "I need some light.",
+          "I need a bit more light over here.",
+          "I could use a little more light here."
+        ]
+      },
+      "invalid_proxy_categories_for_main": [
+        "light",
+        "chandelier"
+      ],
+      "target_selection_policy": "closed_family_single_target",
+      "residual_cues_allowed": [
+        "none",
+        "distance",
+        "side",
+        "ordinal"
+      ],
+      "tie_rule": "If multiple lighting fixtures remain compatible, keep only rows with one evaluator-distinct embodied goal after residual cue resolution.",
+      "notes": "Use only pure-navigation supervision toward an operation-supporting lighting proxy. Lamp rows can stay with local-light wording; ceiling fixtures require an external control proxy and should be frozen unless such a proxy is annotated."
+    },
+    "exit_transition": {
+      "priority": "tier_a",
+      "status": "recommended_for_pilot",
+      "allowed_categories": [
+        "door",
+        "doorframe"
+      ],
+      "forbidden_categories": [
+        "window",
+        "cabinet"
+      ],
+      "intent_labels": [
+        "leave_the_room",
+        "go_through_the_doorway"
+      ],
+      "question_templates": [
+        "I want to head out.",
+        "I need to leave the room.",
+        "I should head through the opening."
+      ],
+      "target_selection_policy": "closed_family_single_target",
+      "residual_cues_allowed": [
+        "none",
+        "distance",
+        "side",
+        "ordinal"
+      ],
+      "tie_rule": "If more than one exit is equally compatible and the prompt lacks an explicit disambiguator, reject from C-main-vNext.",
+      "notes": "Strong embodied semantics; watch multi-exit ambiguity."
+    },
+    "plant_care": {
+      "priority": "tier_a",
+      "status": "recommended_for_pilot",
+      "allowed_categories": [
+        "plant",
+        "flowerpot"
+      ],
+      "forbidden_categories": [
+        "vase",
+        "picture"
+      ],
+      "intent_labels": [
+        "care_for_plant",
+        "water_the_flowerpot"
+      ],
+      "question_templates": [
+        "I want to take care of the plant.",
+        "I need to check on the plant.",
+        "I want to water the plant."
+      ],
+      "target_selection_policy": "closed_family_single_target",
+      "residual_cues_allowed": [
+        "none",
+        "distance",
+        "side",
+        "ordinal"
+      ],
+      "tie_rule": "If multiple plants remain compatible and no single residual cue resolves one instance, reject.",
+      "notes": "Keep action-focused wording and reject purely decorative readings."
+    },
+    "laundry_cleaning": {
+      "priority": "tier_a",
+      "status": "recommended_for_pilot",
+      "allowed_categories": [
+        "washing machine",
+        "dishwasher"
+      ],
+      "forbidden_categories": [
+        "sink",
+        "bucket"
+      ],
+      "intent_labels": [
+        "do_the_laundry",
+        "load_the_dishwasher"
+      ],
+      "question_templates": [
+        "I need to do the laundry.",
+        "I want to wash some clothes.",
+        "I need to load the dishwasher."
+      ],
+      "target_selection_policy": "closed_family_single_target",
+      "residual_cues_allowed": [
+        "none",
+        "distance",
+        "side",
+        "ordinal"
+      ],
+      "tie_rule": "If appliance type alone does not identify a unique embodied endpoint, require one residual cue; otherwise reject.",
+      "notes": "Anchored appliance family with relatively clean semantics."
+    },
+    "self_appearance": {
+      "priority": "tier_a",
+      "status": "recommended_for_pilot",
+      "allowed_categories": [
+        "mirror"
+      ],
+      "forbidden_categories": [
+        "picture",
+        "monitor"
+      ],
+      "intent_labels": [
+        "look_at_yourself"
+      ],
+      "question_templates": [
+        "I want to look at myself.",
+        "I need to check my appearance.",
+        "I want to take a look in the mirror."
+      ],
+      "target_selection_policy": "closed_family_single_target",
+      "residual_cues_allowed": [
+        "none",
+        "distance",
+        "side",
+        "ordinal"
+      ],
+      "tie_rule": "If multiple mirrors are compatible, keep only evaluator-unique rows after residual cue resolution.",
+      "notes": "Very clean semantics but low volume."
+    },
+    "warmth_seek": {
+      "priority": "tier_a",
+      "status": "recommended_for_pilot",
+      "allowed_categories": [
+        "radiator"
+      ],
+      "forbidden_categories": [
+        "lamp",
+        "light"
+      ],
+      "intent_labels": [
+        "warm_yourself"
+      ],
+      "question_templates": [
+        "I want to warm up.",
+        "I need to get near some heat.",
+        "I am feeling cold and need warmth."
+      ],
+      "target_selection_policy": "closed_family_single_target",
+      "residual_cues_allowed": [
+        "none",
+        "distance",
+        "side",
+        "ordinal"
+      ],
+      "tie_rule": "If more than one radiator remains equally compatible and no single residual cue resolves one, reject.",
+      "notes": "Strong implicit intent, anchored target, smaller family."
+    },
+    "cooking_appliance": {
+      "priority": "tier_a",
+      "status": "recommended_for_pilot_with_subfilter",
+      "allowed_categories": [
+        "oven",
+        "stove",
+        "microwave",
+        "kettle",
+        "teapot",
+        "pot"
+      ],
+      "forbidden_categories": [
+        "cup",
+        "bottle",
+        "fruit"
+      ],
+      "intent_labels": [
+        "bake_food",
+        "cook_on_the_stove",
+        "heat_up_food",
+        "boil_water",
+        "make_tea",
+        "cook_in_a_pot"
+      ],
+      "question_templates": [
+        "I want to bake something.",
+        "I want to heat up some food.",
+        "I want to boil some water."
+      ],
+      "safe_category_question_templates": {
+        "oven": [
+          "I'm trying to cook something in the oven.",
+          "I want to bake something.",
+          "I want to heat up the oven for baking.",
+          "I need to roast dinner.",
+          "I want to use the oven for cooking.",
+          "I'm about to bake some food."
+        ],
+        "stove": [
+          "I need a burner to start cooking.",
+          "I need to cook something on the stove.",
+          "I need to cook something on the stovetop.",
+          "I want to cook something on the stovetop.",
+          "I'm about to cook on the stove.",
+          "I need to use the stove for cooking.",
+          "I want to turn on the stove for cooking.",
+          "I want to heat a pan to make food."
+        ],
+        "microwave": [
+          "I want to reheat this food fast.",
+          "I'm trying to warm up my meal.",
+          "I want to heat up some food.",
+          "I need to warm this up quickly.",
+          "I want to reheat something to eat.",
+          "I need to heat up my leftovers."
+        ],
+        "kettle": [
+          "I want to heat water for tea.",
+          "I need to get water boiling.",
+          "I want to boil some water.",
+          "I need some hot water.",
+          "I want to heat water for a drink.",
+          "I want to heat up water quickly.",
+          "I'm making a hot drink and need boiling water."
+        ],
+        "teapot": [
+          "I'm about to make a pot of tea.",
+          "I need to prepare tea.",
+          "I want to make some tea.",
+          "I'm getting ready to brew some tea.",
+          "I need something to get tea ready."
+        ],
+        "pot": [
+          "I want to cook something in a pot.",
+          "I need a pot for cooking.",
+          "I want to get a pot ready to cook in.",
+          "I need something deep enough to simmer food in.",
+          "I need a vessel to boil pasta in.",
+          "I want a pot to cook in.",
+          "I want something I can cook soup in."
+        ]
+      },
+      "target_selection_policy": "closed_family_single_target",
+      "residual_cues_allowed": [
+        "none",
+        "distance",
+        "side",
+        "ordinal"
+      ],
+      "tie_rule": "Prefer appliance-subtype-specific rows; if different appliance subtypes remain jointly plausible under the same prompt, reject or split into subfamilies.",
+      "notes": "High count support, but internal semantic heterogeneity should be checked during pilot."
+    }
+  }
+}

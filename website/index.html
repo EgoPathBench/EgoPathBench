@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EgoPathBench evaluates first-person waypoint decision-making in vision-language models across five geometry-grounded tasks.">
+  <title>EgoPathBench · First-person spatial decisions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><a class="brand" href="#">EgoPath<span>Bench</span></a><nav aria-label="Main navigation"><a href="#benchmark">Benchmark</a><a href="#results">Results</a><a href="#resources">Resources</a></nav></header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">SHANGHAI JIAO TONG UNIVERSITY · EMBODIED INTELLIGENCE</p>
+      <h1>Seeing the way.<br><span>Deciding the path.</span></h1>
+      <p class="subtitle">EgoPathBench: Evaluating Zero-Shot Egocentric Waypoint Decision-Making in Vision-Language Models</p>
+      <p class="authors"><a href="mailto:runder1103@sjtu.edu.cn">Yang Zhao</a> &nbsp; <a href="mailto:yangxubo@sjtu.edu.cn">Xubo Yang*</a><br><small>Shanghai Jiao Tong University · *Corresponding author</small></p>
+      <div class="links"><a class="button" href="#benchmark">Explore the benchmark <span aria-hidden="true">↗</span></a><a class="button secondary" href="assets/EgoPathBench.pdf">Read the preprint</a></div>
+      <div class="stats"><div><strong>31,852</strong><span>training questions</span></div><div><strong>1,345</strong><span>validation questions</span></div><div><strong>1,111</strong><span>benchmark questions</span></div><div><strong>5</strong><span>spatial decision tasks</span></div></div>
+    </section>
+    <section id="benchmark">
+      <p class="eyebrow">THE BENCHMARK</p><h2>One view. Visible waypoints.<br>A route that must work.</h2>
+      <p class="intro">Given an egocentric RGB image, a natural-language goal, and numbered visible waypoints, a model selects traversable candidates or predicts an ordered route. A scene-grounded evaluator checks feasibility, adjacent-edge legality, and goal arrival under point-agent or embodied geometry.</p>
+      <figure><img src="assets/overview.png" alt="Overview of the EgoPathBench observation, waypoint tasks, and scene-grounded evaluation" loading="lazy"><figcaption>The same visual interface supports candidate selection and complete route decisions.</figcaption></figure>
+      <div class="tasks"><article><span>A1</span><h3>Point Traversability</h3><p>Select candidate locations feasible for a point agent.</p></article><article><span>B1</span><h3>Embodied Traversability</h3><p>Account for the agent footprint and clearance.</p></article><article><span>A2</span><h3>Point Path</h3><p>Compose a legal route to an explicit target.</p></article><article><span>B2</span><h3>Embodied Path</h3><p>Reach the target while respecting body geometry.</p></article><article><span>C</span><h3>Intent Path</h3><p>Resolve the intended goal and form an embodied route.</p></article></div>
+    </section>
+    <section id="results">
+      <p class="eyebrow">FOUNDATION MODEL EVALUATION</p><h2>From valid IDs to valid routes.</h2>
+      <p class="intro">The main comparison uses each model's native/default behavior on the fixed benchmark. Traversability columns report balanced accuracy; route columns report success rate. All values are percentages. EgoPath Score averages chance-adjusted traversability (2 × BA − 1) and the three route success rates.</p>
+      <div class="table-wrap"><table><caption>Native/default foundation-model leaderboard</caption><thead><tr><th scope="col">Model</th><th scope="col">A1</th><th scope="col">B1</th><th scope="col">A2</th><th scope="col">B2</th><th scope="col">C</th><th scope="col">EgoPath Score</th></tr></thead><tbody id="leaderboard"></tbody></table></div>
+      <p class="note">A parseable sequence of in-vocabulary waypoint IDs can still fail to form an edge-legal, goal-correct route. Results here describe the released observation and evaluation protocol.</p>
+    </section>
+    <section class="resources" id="resources"><p class="eyebrow">BUILD ON EGOPATHBENCH</p><h2>Data, evaluation, and spatial CoT.</h2><p>Training and validation splits accompany the benchmark, with geometry-grounded answers and reference routes. Spatial CoT provides additional supervision for first-person spatial reasoning.</p><div class="resource-grid"><article><h3>Code & evaluation</h3><p>Public repository preparation in progress.</p><code>EgoPathBench/EgoPathBench</code></article><article><h3>Dataset</h3><p>Hugging Face release preparation in progress.</p><code>31,852 / 1,345 / 1,111</code></article><article><h3>Paper</h3><p><a href="assets/EgoPathBench.pdf">Download the preprint</a></p><p>arXiv submission pending.</p></article></div></section>
+  </main>
+  <footer><span>EgoPathBench · Shanghai Jiao Tong University</span><a href="mailto:runder1103@sjtu.edu.cn">Contact</a></footer>
+  <script src="leaderboard.js"></script>
+</body>
+</html>

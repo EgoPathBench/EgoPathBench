@@ -1,0 +1,98 @@
+# NavBench3D local config for InternScenes real2sim on this machine.
+# Data source lock:
+#   - InternScenes real2sim only (3rscan + scannet)
+#   - Matterport3D deferred
+
+data:
+  internscenes_dir: "/mnt/data/zhaoyang/navbench3d-data/internscenes_raw"
+  scenes_dir: "/mnt/data/zhaoyang/navbench3d-data/scenes"
+  renders_dir: "/mnt/data/zhaoyang/navbench3d-data/renders"
+  ai_renders_dir: "/mnt/data/zhaoyang/navbench3d-data/ai_renders"
+  gt_paths_dir: "/mnt/data/zhaoyang/navbench3d-data/gt_paths"
+  vqa_dir: "/mnt/data/zhaoyang/navbench3d-data/vqa_questions"
+  results_dir: "/mnt/data/zhaoyang/navbench3d-data/results"
+  observation_pack_filename: "next_observation_v1.json"
+  task_outputs_filename: "next_task_outputs_v1.json"
+
+task_outputs:
+  prefer_materialized: true
+  dense_spacing_m: 0.35
+  sparse_count: 80
+  min_pixel_dist: 16
+  max_visible: 280
+
+filter:
+  min_area: 10.0
+  min_objects: 3
+
+render:
+  resolution: [1024, 1024]
+  views_per_scene: 12
+  camera_height: 1.25
+  fov: 120
+  render_depth: true
+  render_normal: true
+  render_topdown: true
+  topdown_resolution: [512, 512]
+  export_observation_pack: true
+  use_observation_pack: false
+  legacy_observation_fallback: true
+
+navigation:
+  grid_resolution: 0.05
+  agent_radius: 0.30
+  passable_margin: 0.0
+  path_simplification: 0.1
+
+targets:
+  view_seed_experiment_mode: preselection_off
+  recommended_categories_file: "configs/target_categories_100.json"
+  category_aliases_file: "configs/object_category_aliases.json"
+  large_size_m: 1.0
+  large_visibility_ratio: 0.70
+  min_target_distance: 2.0
+  min_target_area_px: 900
+  min_target_short_side_px: 18
+  min_target_visible_surface_ratio: 0.15
+  max_targets_per_view: 10
+  prefilter_targets_per_view: 30
+  instruction_distance_tie_eps_m: 0.001
+  dedup_position_m: 1.0
+  dedup_yaw_deg: 20.0
+  forward_clear_radius_m: 1.0
+  forward_clear_height_m: 1.4
+  path_bottom_screen_y: -0.5
+  dense_candidate_spacing_m: 0.1
+  dense_path_max_starts: 18
+  dense_path_max_goals: 18
+  goal_near_radius_m: 1.0
+  gt_turn_angle_deg: 20.0
+  gt_min_segment_m: 0.6
+
+vqa:
+  targets_per_scene: 3
+  levels: [1, 2, 3, 4]
+  target_visibility: "visible_or_partial"
+
+evaluation:
+  success_threshold: 1.0
+  collision_check: true
+  metrics:
+    - "success_rate"
+    - "spl"
+    - "collision_rate"
+    - "path_deviation"
+    - "path_smoothness"
+
+vlm:
+  models:
+    - name: "gpt-4o"
+      api: "openai"
+    - name: "claude-3.5-sonnet"
+      api: "anthropic"
+    - name: "gemini-2.0-flash"
+      api: "google"
+    - name: "qwen-vl-max"
+      api: "dashscope"
+  max_tokens: 2048
+  temperature: 0.0

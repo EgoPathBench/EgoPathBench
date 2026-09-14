@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+dataset/
+downloads/
+dist/
+results/
+*.log
+*.aux
+*.fdb_latexmk
+*.fls

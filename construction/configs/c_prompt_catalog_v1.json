@@ -1,0 +1,275 @@
+{
+  "schema_version": "c_prompt_catalog_v1",
+  "families": {
+    "sit_rest": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to sit down.",
+            "I need a place to sit.",
+            "I want to take a seat."
+          ],
+          "banned_phrases": [
+            "chair",
+            "couch",
+            "sofa",
+            "stool"
+          ]
+        }
+      }
+    },
+    "wash_clean": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to wash my hands.",
+            "I need to rinse my hands.",
+            "I want to wash up a bit."
+          ],
+          "banned_phrases": [
+            "sink",
+            "basin"
+          ]
+        }
+      }
+    },
+    "discard": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to throw something away.",
+            "I need to get rid of something.",
+            "I need somewhere to throw something away."
+          ],
+          "banned_phrases": [
+            "bin",
+            "trash can"
+          ]
+        }
+      }
+    },
+    "store_put_away": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to put something away.",
+            "I need a place where I can store something.",
+            "I need somewhere to put something away."
+          ],
+          "banned_phrases": [
+            "cabinet"
+          ]
+        }
+      }
+    },
+    "place_object": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to set something down.",
+            "I need somewhere to place something.",
+            "I want a place where I can put something down."
+          ],
+          "banned_phrases": [
+            "table",
+            "desk",
+            "counter"
+          ]
+        }
+      }
+    },
+    "lighting_control": {
+      "default_slot": null,
+      "category_to_slot": {
+        "lamp": "lamp_only"
+      },
+      "slots": {
+        "lamp_only": {
+          "templates": [
+            "I need some light.",
+            "I need a bit more light over here.",
+            "I could use a little more light here."
+          ],
+          "banned_phrases": [
+            "lamp",
+            "chandelier"
+          ]
+        }
+      }
+    },
+    "exit_transition": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to head out.",
+            "I need to leave the room.",
+            "I should head through the opening."
+          ],
+          "banned_phrases": [
+            "door",
+            "doorframe",
+            "doorway"
+          ]
+        }
+      }
+    },
+    "plant_care": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I need to water something living here.",
+            "I want to take care of something needing water.",
+            "I should check on something in need of a bit of care."
+          ],
+          "banned_phrases": [
+            "plant",
+            "flowerpot",
+            "flower pot"
+          ]
+        }
+      }
+    },
+    "laundry_cleaning": {
+      "default_slot": null,
+      "category_to_slot": {
+        "washing machine": "do_laundry",
+        "dishwasher": "load_dishwasher"
+      },
+      "slots": {
+        "do_laundry": {
+          "templates": [
+            "I need to do the laundry.",
+            "I am going to wash some clothes.",
+            "I need to get some clothes cleaned."
+          ],
+          "banned_phrases": [
+            "washing machine",
+            "washer"
+          ]
+        },
+        "load_dishwasher": {
+          "templates": [
+            "I need to get these dishes cleaned.",
+            "I want to put the dirty dishes in for a cycle.",
+            "I need somewhere to start cleaning these dishes."
+          ],
+          "banned_phrases": [
+            "dishwasher"
+          ]
+        }
+      }
+    },
+    "self_appearance": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to look at myself.",
+            "I need to check my appearance.",
+            "I want to see how I look."
+          ],
+          "banned_phrases": [
+            "mirror"
+          ]
+        }
+      }
+    },
+    "warmth_seek": {
+      "default_slot": "family_default",
+      "slots": {
+        "family_default": {
+          "templates": [
+            "I want to warm up.",
+            "I need to get near some heat.",
+            "I am feeling cold and need some warmth."
+          ],
+          "banned_phrases": [
+            "radiator",
+            "heater"
+          ]
+        }
+      }
+    },
+    "cooking_appliance": {
+      "default_slot": null,
+      "category_to_slot": {
+        "microwave": "heat_up_food",
+        "oven": "bake_food",
+        "stove": "cook_on_stovetop",
+        "kettle": "boil_water",
+        "teapot": "make_tea",
+        "pot": "simmer_food"
+      },
+      "slots": {
+        "heat_up_food": {
+          "templates": [
+            "I want to reheat something to eat.",
+            "I need to warm up some food.",
+            "I want to heat up a quick meal."
+          ],
+          "banned_phrases": [
+            "microwave"
+          ]
+        },
+        "bake_food": {
+          "templates": [
+            "I want to bake something.",
+            "I need to cook something through with dry heat.",
+            "I am about to bake some food."
+          ],
+          "banned_phrases": [
+            "oven"
+          ]
+        },
+        "cook_on_stovetop": {
+          "templates": [
+            "I want to cook something on the stove.",
+            "I need to heat a pan for cooking.",
+            "I am about to start cooking a meal."
+          ],
+          "banned_phrases": [
+            "stove",
+            "cooktop"
+          ]
+        },
+        "boil_water": {
+          "templates": [
+            "I need to boil some water.",
+            "I want to heat up water for a drink.",
+            "I am about to make some hot water."
+          ],
+          "banned_phrases": [
+            "kettle"
+          ]
+        },
+        "make_tea": {
+          "templates": [
+            "I want to make some tea.",
+            "I need to prepare tea.",
+            "I am about to make myself some tea."
+          ],
+          "banned_phrases": [
+            "teapot"
+          ]
+        },
+        "simmer_food": {
+          "templates": [
+            "I want to simmer something.",
+            "I need to cook something gently for a while.",
+            "I am about to start simmering some food."
+          ],
+          "banned_phrases": [
+            "pot"
+          ]
+        }
+      }
+    }
+  }
+}

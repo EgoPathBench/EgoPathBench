@@ -1,0 +1,43 @@
+{
+  "schema_version": "cue_repair_protocol_v1",
+  "cue_priority_order": [
+    "relation",
+    "attribute",
+    "color",
+    "distance"
+  ],
+  "trusted_relation_types": [
+    "near",
+    "on",
+    "inside",
+    "under"
+  ],
+  "disabled_relation_types": [
+    "left_of",
+    "right_of",
+    "in_front_of",
+    "behind",
+    "between"
+  ],
+  "max_total_cues": 2,
+  "max_relation_cues": 1,
+  "routing_fact_scope": "fixed_gt_row_only",
+  "supported_only_uniqueness_witness": true,
+  "answer_leakage_forbidden_terms": [
+    "target_id",
+    "goal_id",
+    "goal_ids",
+    "path_ids",
+    "routing_id",
+    "display id",
+    "waypoint id"
+  ],
+  "distance_policy": {
+    "mode": "strict_margin_only",
+    "allow_global_distance_fallback": true
+  },
+  "color_policy": {
+    "mode": "visible_color_only_when_stable",
+    "allow_multicolor_as_unique": false
+  }
+}

@@ -1,0 +1,16 @@
+numpy
+scipy
+scikit-image
+Pillow
+trimesh
+PyYAML
+opencv-python
+huggingface_hub
+diffusers>=0.31.0
+transformers
+accelerate
+torch
+sentencepiece
+openai
+anthropic
+google-generativeai

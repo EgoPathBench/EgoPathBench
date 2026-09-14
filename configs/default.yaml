@@ -1,0 +1,160 @@
+# NavBench3D Configuration
+
+# Data paths — large data on /datadisk (880GB NVMe)
+data:
+  internscenes_dir: "/datadisk/NavBench3D/internscenes_raw"  # Raw InternScenes data
+  scenes_dir: "/datadisk/NavBench3D/scenes"                   # Filtered scenes
+  renders_dir: "/datadisk/NavBench3D/renders"                 # Blender rendered images
+  ai_renders_dir: "/datadisk/NavBench3D/ai_renders"           # AI re-rendered images
+  gt_paths_dir: "/datadisk/NavBench3D/gt_paths"               # Ground truth navigation paths
+  vqa_dir: "/datadisk/NavBench3D/vqa_questions"               # VQA question sets
+  results_dir: "/datadisk/NavBench3D/results"                 # Benchmark evaluation results
+
+task_outputs:
+  prefer_materialized: true
+  dense_spacing_m: 0.35
+  sparse_count: 80
+  min_pixel_dist: 16
+  max_visible: 280
+
+# Scene filtering
+filter:
+  min_area: 20.0        # Minimum floor area in m²
+  max_area: 200.0       # Maximum floor area in m²
+  min_objects: 3         # Minimum number of objects in scene
+  max_objects: 50        # Maximum number of objects
+  min_nav_distance: 1.5  # Minimum navigation distance in meters
+  max_nav_distance: 15.0 # Maximum navigation distance
+
+# Rendering
+render:
+  resolution: [1024, 1024]  # 1:1 aspect ratio
+  views_per_scene: 12       # Soft cap; view filtering applies
+  camera_height: 1.25      # Camera height in meters (Habitat standard agent height)
+  fov: 120                 # VFOV in degrees (1:1 so HFOV=VFOV)
+  render_depth: true
+  render_normal: true
+  # render_semantic: planned but not yet implemented
+  render_topdown: true     # Orthographic top-down view
+  topdown_resolution: [512, 512]
+
+# AI Re-rendering
+# Backend: "flux2" (best), "flux2-klein" (fast), "flux-kontext", "qwen", "flux-cn", "sd35", "sdxl" (legacy), "all" (compare)
+ai_render:
+  backend: "flux2"
+  prompt: "photorealistic interior room photograph, natural lighting, high detail, 8k resolution, architectural photography, realistic materials and textures"
+  negative_prompt: "cartoon, anime, painting, drawing, illustration, low quality, blurry, distorted, unrealistic"
+
+  # 1. FLUX.2-dev — 32B native editing + generation, up to 4MP (~40GB VRAM)
+  #    Best overall: Mistral-3 24B VLM encoder + Rectified Flow Transformer
+  flux2_model: "black-forest-labs/FLUX.2-dev"
+  flux2_prompt: "Transform this synthetic 3D render into a photorealistic photograph. Keep the exact same room layout, furniture positions, and camera angle. Add realistic lighting, material textures, shadows, and natural imperfections. Make it look like a real interior photograph taken with a DSLR camera."
+  # Ablation: detailed prompt (slightly lower edge_ssim=0.775 but richer texture descriptions)
+  flux2_prompt_detailed: "Convert this CG interior render into a photorealistic photograph shot with a Canon EOS R5, 24mm f/2.8 lens. Preserve the exact room layout, furniture placement, and camera viewpoint. Add physically accurate natural indoor lighting with warm ambient light from windows and ceiling fixtures. Apply realistic material textures: wood grain with subtle wear marks, fabric with visible weave, matte paint with micro imperfections, polished surfaces with soft reflections. Include contact shadows under furniture, soft ambient occlusion in corners, and subtle dust particles in light beams. The floor should show slight scuff marks. Color temperature 4500K, slight lens distortion, natural dynamic range."
+  flux2_strength: 0.55
+  flux2_guidance_scale: 3.5
+  flux2_num_steps: 28
+
+  # 2. FLUX.2-klein — distilled 8B, 4-step inference (~20GB VRAM)
+  #    Fast batch processing, quality below FLUX.2-dev but above FLUX.1
+  flux2_klein_model: "black-forest-labs/FLUX.2-klein-8B"
+  flux2_klein_prompt: "Transform this synthetic 3D render into a photorealistic photograph. Keep the exact same room layout, furniture positions, and camera angle. Add realistic lighting, material textures, shadows, and natural imperfections."
+  flux2_klein_strength: 0.55
+  flux2_klein_guidance_scale: 3.5
+  flux2_klein_num_steps: 4
+
+  # 3. FLUX.1-Kontext-dev — instruction-based editing (~24GB VRAM)
+  #    Good structure preservation: edits the image rather than regenerating
+  kontext_model: "black-forest-labs/FLUX.1-Kontext-dev"
+  kontext_prompt: "Transform this synthetic 3D render into a photorealistic photograph. Keep the exact same room layout, furniture positions, and camera angle. Add realistic lighting, material textures, shadows, and natural imperfections. Make it look like a real interior photograph taken with a DSLR camera."
+  kontext_guidance_scale: 2.5
+  kontext_num_steps: 28
+
+  # 4. Qwen-Image — dual VL+VAE encoding, latest 2025 model (~30GB VRAM)
+  #    Apache 2.0 license, strong semantic understanding
+  qwen_image_model: "Qwen/Qwen-Image"
+  qwen_prompt: "Convert this synthetic interior render to a photorealistic photograph. Maintain the exact same room layout and furniture placement. Apply realistic lighting, material textures, and natural shadows."
+  qwen_num_steps: 50
+  qwen_cfg_scale: 4.0
+
+  # 5. FLUX.1-dev + ControlNet Union Pro — depth+canny dual control (~24GB VRAM)
+  #    Most proven geometric control via explicit spatial conditioning
+  flux_model: "black-forest-labs/FLUX.1-dev"
+  flux_controlnet: "Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro"
+  flux_conditioning_scales: [0.5, 0.4]  # [depth, canny]
+  flux_num_steps: 24
+  flux_guidance_scale: 3.5
+
+  # 5b. FLUX.1 + ControlNet + Img2Img — triple constraint (~24GB VRAM)
+  #     Highest structural fidelity: Img2Img + depth + canny triple lock
+  #     Uses ungated sayakpaul/FLUX.1-merged (same arch as FLUX.1-dev, no gate needed)
+  flux_cn_i2i_model: "sayakpaul/FLUX.1-merged"
+  flux_cn_i2i_strength: 0.20           # Only modify 20% of pixels
+  flux_cn_i2i_conditioning_scales: [0.6, 0.5]  # [depth, canny] — stronger than txt2img mode
+  flux_cn_i2i_num_steps: 28
+
+  # 6. Stable Diffusion 3.5 Large (~16GB VRAM)
+  sd35_model: "stabilityai/stable-diffusion-3.5-large"
+  sd35_strength: 0.55
+  sd35_guidance_scale: 5.0
+  sd35_num_steps: 28
+
+  # 7. SDXL + ControlNet (legacy, ~10GB VRAM)
+  model: "stabilityai/stable-diffusion-xl-base-1.0"
+  controlnet_depth: "diffusers/controlnet-depth-sdxl-1.0"
+  strength: 0.65
+  guidance_scale: 7.5
+  num_inference_steps: 30
+  controlnet_conditioning_scale: 0.8
+
+# Navigation GT
+navigation:
+  grid_resolution: 0.05    # Occupancy grid cell size in meters
+  agent_radius: 0.30       # Navigation agent radius in meters (matches robot collision cylinder r=0.30m)
+  passable_margin: 0.1     # Extra margin around obstacles
+  path_simplification: 0.1 # Path simplification tolerance in meters
+
+# Target selection / visibility rules
+targets:
+  recommended_categories_file: "configs/target_categories_100.json"
+  large_size_m: 1.0
+  large_visibility_ratio: 0.70
+  min_target_distance: 2.0
+  max_targets_per_view: 10
+  dedup_position_m: 1.0
+  dedup_yaw_deg: 20.0
+  forward_clear_radius_m: 1.0
+  forward_clear_height_m: 1.4
+  path_sample_step_m: 0.1
+  path_bottom_screen_y: -0.5  # normalized screen y ([-1,1]) near bottom
+
+# VQA Generation
+vqa:
+  targets_per_scene: 3     # Number of target objects per scene
+  levels: [1, 2, 3, 4]     # Difficulty levels to generate
+  target_visibility: "visible_or_partial"  # Target must be at least partially visible
+
+# Evaluation
+evaluation:
+  success_threshold: 1.0   # Distance to target for success (meters)
+  collision_check: true
+  metrics:
+    - "success_rate"
+    - "spl"
+    - "collision_rate"
+    - "path_deviation"
+    - "path_smoothness"
+
+# VLM Testing
+vlm:
+  models:
+    - name: "gpt-4o"
+      api: "openai"
+    - name: "claude-3.5-sonnet"
+      api: "anthropic"
+    - name: "gemini-2.0-flash"
+      api: "google"
+    - name: "qwen-vl-max"
+      api: "dashscope"
+  max_tokens: 2048
+  temperature: 0.0

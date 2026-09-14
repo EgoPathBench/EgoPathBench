@@ -1,0 +1,51 @@
+{
+  "sit_rest": [
+    "chair",
+    "couch",
+    "stool"
+  ],
+  "wash_clean": [
+    "sink",
+    "basin"
+  ],
+  "discard": [
+    "bin"
+  ],
+  "self_appearance": [
+    "mirror"
+  ],
+  "exit_transition": [
+    "door",
+    "doorframe"
+  ],
+  "laundry_cleaning": [
+    "washing machine",
+    "dishwasher"
+  ],
+  "store_put_away": [
+    "cabinet"
+  ],
+  "place_object": [
+    "table",
+    "desk",
+    "counter"
+  ],
+  "warmth_seek": [
+    "radiator"
+  ],
+  "plant_care": [
+    "plant",
+    "flowerpot"
+  ],
+  "cooking_appliance": [
+    "oven",
+    "stove",
+    "microwave",
+    "kettle",
+    "teapot",
+    "pot"
+  ],
+  "lighting_control": [
+    "lamp"
+  ]
+}

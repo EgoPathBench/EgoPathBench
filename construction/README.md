@@ -1,0 +1,1 @@
+These are the original formal-release construction tools. Their machine-specific paths record the research environment and must be adapted before rebuilding. For portable evaluation, follow the root README and download the published dataset.

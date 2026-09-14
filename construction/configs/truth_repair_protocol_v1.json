@@ -1,0 +1,139 @@
+{
+  "schema_version": "truth_repair_protocol_v1",
+  "left_right_margin_px": 24,
+  "ordinal_margin_px": 24,
+  "front_back_margin_m": 0.3,
+  "near_far_margin_m": 0.3,
+  "max_cues": 2,
+  "max_relation_cues": 1,
+  "max_prompt_delta_sentences": 1,
+  "max_prompt_delta_tokens": 16,
+  "max_cue_tokens_per_cue": 8,
+  "max_attribute_slots": 2,
+  "max_relation_slots": 1,
+  "counts": {
+    "benchmark": {
+      "total": 1352,
+      "minimum": 1285
+    },
+    "per_task": {
+      "a1": {
+        "total": 151,
+        "minimum": 148
+      },
+      "b1": {
+        "total": 151,
+        "minimum": 148
+      },
+      "a2": {
+        "total": 350,
+        "minimum": 333
+      },
+      "b2": {
+        "total": 350,
+        "minimum": 333
+      },
+      "c": {
+        "total": 350,
+        "minimum": 333
+      }
+    }
+  },
+  "ratio_tolerance": 0.02,
+  "a2b2_recovery": {
+    "preflight_required": true,
+    "target_task_minimum": 333,
+    "residual_adjudication_pool_max_total": 30,
+    "residual_adjudication_pool_max_per_task": 15,
+    "support_visibility_repair_required": true,
+    "support_visibility_allowed_evidence_sources": [
+      "visible_objects",
+      "routing_candidates",
+      "raycast_verified",
+      "screen_anchor"
+    ],
+    "exclude_competitor_requires_non_human_visible_proof": true
+  },
+  "c_benchmark_freeze": {
+    "lock_mode": "legacy_slot_manifest",
+    "freeze_scene_pool": true,
+    "freeze_row_budget": true,
+    "freeze_route_slot": true,
+    "slot_identity_fields": [
+      "scene_id",
+      "view_id",
+      "routing_id"
+    ],
+    "allow_cross_slot_regeneration": false,
+    "path_identity_mode": "slot_identity",
+    "slot_compatible_source_required": true,
+    "c_preflight_required": true
+  },
+  "train_val_qc": {
+    "machine_only": true,
+    "bucket_fail_enabled": true,
+    "default_bucket_min_size": 50,
+    "max_leakage_rate": 0.0,
+    "max_unresolved_rate": 0.0,
+    "max_invalid_prompt_rate": 0.0,
+    "max_target_lock_violation_rate": 0.0,
+    "catch_all_bucket_enabled": true,
+    "target_lock_row_fail": true
+  },
+  "global_resplit": {
+    "enabled": true,
+    "selection_order": [
+      "benchmark",
+      "val",
+      "train"
+    ],
+    "scene_isolation_mode": "scene_and_source_group",
+    "benchmark_target_questions": {
+      "min": 1000,
+      "max": 2000
+    },
+    "benchmark_units": {
+      "a1": "view_bundle",
+      "b1": "view_bundle",
+      "a2": "route_bundle",
+      "b2": "route_bundle",
+      "c": "route_bundle"
+    },
+    "immutability_fields": {
+      "view_bundle": [
+        "scene_id",
+        "view_id",
+        "target_id"
+      ],
+      "route_bundle": [
+        "scene_id",
+        "view_id",
+        "routing_id",
+        "target_id",
+        "goal_anchor_id",
+        "gt_path_id"
+      ],
+      "c_route_bundle": [
+        "scene_id",
+        "view_id",
+        "routing_id",
+        "target_id",
+        "goal_anchor_id",
+        "gt_path_id",
+        "intent_family"
+      ]
+    },
+    "selection_objective": {
+      "source_balance_required": true,
+      "task_family_balance_required": true,
+      "per_scene_density_caps_required": true,
+      "count_window_is_soft_target": true
+    },
+    "reporting_required": [
+      "question_variants",
+      "unique_bundles",
+      "unique_scenes"
+    ],
+    "full_corpus_preflight_required": true
+  }
+}

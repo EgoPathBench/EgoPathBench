@@ -1,0 +1,32 @@
+[
+  {
+    "task": "a1",
+    "question_id": "3rscan__10b1792a-3938-2467-8b4e-a93da27a0985_v4_a1",
+    "prompt": "The image shows numbered candidate points. Output a JSON array of display IDs that are walkable.",
+    "image": "assets/task-a1.png"
+  },
+  {
+    "task": "b1",
+    "question_id": "3rscan__10b1792a-3938-2467-8b4e-a93da27a0985_v4_b1",
+    "prompt": "The image shows numbered candidate points. The robot has diameter 0.6m. Output a JSON array of display IDs that are walkable for the robot.",
+    "image": "assets/task-b1.png"
+  },
+  {
+    "task": "a2",
+    "question_id": "3rscan__0cac759b-8d6f-2d13-8e3b-2e3bc1ee1158_v3_routing_v3_c001_a2",
+    "prompt": "The image shows numbered candidate points. Start at display ID 1. Navigate to the shelf under the book. Output a JSON array of display IDs representing a valid path.",
+    "image": "assets/task-a2.png"
+  },
+  {
+    "task": "b2",
+    "question_id": "3rscan__0cac759b-8d6f-2d13-8e3b-2e3bc1ee1158_v3_routing_v3_c001_b2",
+    "prompt": "The image shows numbered candidate points. You are the robot, and your body diameter is 0.6 m. Start at display ID 1. Navigate to the shelf under the book. Return a JSON array of display IDs representing a valid collision-free path for the robot.",
+    "image": "assets/task-b2.png"
+  },
+  {
+    "task": "c",
+    "question_id": "3rscan__283ccfef-107c-24d5-8aa6-c570e923c134_v1_routing_v1_c004_c",
+    "prompt": "The image shows numbered candidate points. You are the robot, and your body diameter is 0.6 m. Start at display ID 1. A person says: \"I want to sit down near the cabinet, specifically the closest option.\" Return a JSON array of display IDs representing a valid collision-free path to the resolved target.",
+    "image": "assets/task-c.png"
+  }
+]

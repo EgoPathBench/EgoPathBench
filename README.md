@@ -2,8 +2,9 @@
 
 **Evaluating Zero-Shot Egocentric Waypoint Decision-Making in Vision-Language Models**
 
-Yang Zhao, Xubo Yang (corresponding author) · Shanghai Jiao Tong University
+Yang Zhao, Zhuo Chen, Xubo Yang (corresponding author) · Shanghai Jiao Tong University
 
+[Paper](https://arxiv.org/abs/2609.16610) ·
 [Project page](https://egopathbench.github.io/EgoPathBench/) ·
 [Dataset](https://huggingface.co/datasets/runder1/EgoPathBench)
 
@@ -24,7 +25,7 @@ acceptable goal IDs. Replacing these with a sparse graph changes the protocol.
 
 ## Download and evaluate
 
-The data release is being uploaded; check its dataset card for completion status.
+The complete data release is publicly available: 36 archives (33.39 GB), verified against the SHA-256 archive manifest.
 
 ```bash
 git clone https://github.com/EgoPathBench/EgoPathBench.git
@@ -90,4 +91,16 @@ upstream terms; original scene meshes are not redistributed. See
 Contact: [Yang Zhao](mailto:runder1103@sjtu.edu.cn),
 [Xubo Yang](mailto:yangxubo@sjtu.edu.cn).
 
-arXiv submission is pending. No arXiv identifier has been assigned.
+## Citation
+
+```bibtex
+@misc{zhao2026egopathbench,
+  title={EgoPathBench: Evaluating Zero-Shot Egocentric Waypoint Decision-Making in Vision-Language Models},
+  author={Yang Zhao and Zhuo Chen and Xubo Yang},
+  year={2026},
+  eprint={2609.16610},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2609.16610}
+}
+```

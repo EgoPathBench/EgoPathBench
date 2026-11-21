@@ -30,7 +30,7 @@
         <p class="hero-question">Can a vision-language model plan a route a robot can follow?</p>
         <p class="hero-deck">One first-person image, a goal, and numbered waypoints. Five tasks test whether the model can choose each step and reach the target in a real 3D scene.</p>
         <div class="actions"><a class="button primary" href="#leaderboard">View leaderboard</a><a class="button" href="https://arxiv.org/abs/2609.16610">Read preprint</a></div>
-        <div class="podium" hidden><p>Zero-shot leaders <span>· EgoPath Score</span></p><ol id="top-models"></ol></div>
+        <div class="podium"><p>Zero-shot leaders <span>· EgoPath Score out of 100</span></p><ol class="rank-bars" id="top-models"></ol></div>
       </div>
       <figure class="rollout">
         <div class="rollout-top"><span class="eyebrow">Closed-loop rollout</span><span class="instrument">Isaac Sim</span></div>
@@ -49,10 +49,16 @@
       <p class="section-intro">1,111 questions across 255 held-out scenes. Compare overall scores or inspect the metrics for each task.</p>
       <div class="controls">
         <div class="switch" role="group" aria-label="Evaluation setting"><button type="button" data-setting="Zero-shot" aria-pressed="true">Zero-shot models</button><button type="button" data-setting="Training study" aria-pressed="false">Training study</button></div>
-        <label class="metric-label" for="metric-view">Metrics <select id="metric-view"><option value="overall">Overview</option><option value="a1">Point Traversability</option><option value="b1">Embodied Traversability</option><option value="a2">Point Path</option><option value="b2">Embodied Path</option><option value="c">Intent Path</option></select></label>
+        <label class="metric-label" for="metric-view">Task <select id="metric-view"><option value="overall">Overview</option><option value="a1">Point Traversability</option><option value="b1">Embodied Traversability</option><option value="a2">Point Path</option><option value="b2">Embodied Path</option><option value="c">Intent Path</option></select></label>
       </div>
-      <p id="board-status" class="board-status" aria-live="polite">Loading results…</p>
+      <figure class="ranking-chart" aria-labelledby="chart-metric">
+        <figcaption><h3 id="chart-metric">EgoPath Score</h3><p id="board-status" class="board-status" aria-live="polite">Loading results…</p></figcaption>
+        <div class="chart-axis" aria-hidden="true"><div id="chart-ticks"></div></div>
+        <ol class="rank-bars" id="rank-bars"></ol>
+      </figure>
+      <details class="data-table"><summary>Full metric table</summary>
       <div class="table-wrap" tabindex="0" role="region" aria-label="Leaderboard table, scroll horizontally for more metrics"><table id="model-table"><caption class="sr-only">EgoPathBench leaderboard</caption><thead></thead><tbody></tbody></table></div>
+      </details>
       <noscript><p><a href="leaderboard.csv">Read the full leaderboard as a CSV file.</a></p></noscript>
       <details class="score-note"><summary>How the scores are calculated</summary>
         <p>EgoPath Score gives equal weight to five tasks. For each traversability task, the contribution is twice balanced accuracy (BA) minus one. For each path task, it is the success rate (SR). The mean is scaled to 100. All task metrics are percentages.</p>

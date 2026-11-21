@@ -53,12 +53,23 @@ h1 em { color: var(--clay); font-weight: 400; letter-spacing: -.075em }
 .podium { max-width: 28.5rem; margin-top: 1.4rem; border-top: 1px solid var(--line); padding-top: .7rem }
 .podium p { color: var(--ink); font-size: .8rem; font-weight: 600 }
 .podium p span { color: var(--muted); font-weight: 400 }
-.podium ol { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0; margin: .45rem 0 0; list-style: none }
-.podium li { padding-inline: .9rem; border-left: 1px solid var(--line) }
-.podium li:first-child { padding-left: 0; border: 0 }
-.podium strong { display: block; font: 1.8rem/1.08 var(--serif); letter-spacing: -.055em; font-variant-numeric: lining-nums tabular-nums }
-.podium li:first-child strong { color: var(--clay) }
-.podium li span { display: block; margin-top: .18rem; font-size: .82rem }
+/* Both rankings use the same data scale, including the compact hero chart. */
+.rank-bars { margin: 0; padding: 0; list-style: none; font-variant-numeric: tabular-nums }
+.rank-bars li, .chart-axis { display: grid; grid-template-columns: var(--names) minmax(0, 1fr) var(--values); align-items: center; gap: var(--gap) }
+.rank-name { display: flex; align-items: baseline; gap: .75rem; font-weight: 550; line-height: 1.25 }
+.rank-name small { font: .76rem var(--mono); color: var(--muted) }
+.rank-track { display: flex; align-items: center; height: 100%; min-height: 2.5rem; border-inline: 1px solid var(--line); background: repeating-linear-gradient(to right, transparent 0, transparent calc(25% - 1px), #e4e5dd calc(25% - 1px), #e4e5dd 25%) }
+.rank-track i { display: block; height: .82rem; background: #718474; border-radius: 0 .18rem .18rem 0 }
+.rank-bars b { text-align: right; font: 550 .96rem var(--mono) }
+.rank-bars .leading i { background: var(--clay) }
+.leading .rank-name, .rank-bars .leading b { color: #973b26 }
+.podium { --names: 8.7rem; --values: 2.35rem; --gap: .6rem }
+.podium ol { margin-top: .45rem; min-height: 4.05rem }
+.podium .rank-name { font-size: .8rem; gap: .45rem }
+.podium .rank-name small { font-size: .71rem }
+.podium .rank-track { min-height: 1.35rem; border: 0; background: transparent }
+.podium .rank-track i { height: .38rem }
+.podium b { font-size: .84rem }
 .rollout { overflow: hidden; border: 1px solid #d2d3c9; border-radius: .8rem; background: #edece5 }
 .rollout-top { display: flex; justify-content: space-between; align-items: baseline; padding: .85rem 1.15rem 0 }
 .rollout-top .eyebrow { color: #4f534a; margin: 0 }
@@ -85,7 +96,15 @@ h1 em { color: var(--clay); font-weight: 400; letter-spacing: -.075em }
 .switch button { padding: .46rem .8rem; font-weight: 550; font-size: .91rem; border-radius: .4rem; background: transparent }
 .switch button[aria-pressed="true"] { background: var(--ink); color: white }
 .metric-label { display: flex; gap: .55rem; align-items: center; color: var(--muted); font-size: .88rem }
-.board-status { margin: .85rem 0 .5rem }
+.ranking-chart { --names: min(23%, 14rem); --values: 4.7rem; --gap: 1rem; margin: 1.15rem 0 .55rem; padding: 1.25rem 1.4rem 1.1rem; border: 1px solid var(--line); border-radius: .65rem; background: #fbfbf8 }
+.ranking-chart figcaption { padding-bottom: .8rem }
+.ranking-chart h3 { font-size: 1.1rem }
+.board-status { margin-top: .22rem }
+.chart-axis { height: 1.6rem }
+.chart-axis > div { grid-column: 2; position: relative; height: 100% }
+.chart-axis span { position: absolute; transform: translateX(-50%); font: .77rem var(--mono); color: var(--muted) }
+.data-table[open] { padding-bottom: 1rem }
+
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: .6rem }
 table { width: 100%; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; font-size: .94rem }
 td, th { padding: .72rem .82rem; text-align: right; border-bottom: 1px solid #e7e7df; background: #fff }
@@ -196,6 +215,12 @@ footer { border-top: 1px solid var(--line); padding-block: 1.3rem; font-size: .9
   .board-title { align-items: center }
   .download { padding: .43rem .8rem; font-size: .83rem }
   .controls { gap: .65rem }
+  .ranking-chart { --names: min(42%, 10rem); --values: 3.2rem; --gap: .48rem; padding: 1rem .7rem }
+  .ranking-chart .rank-name { font-size: .88rem; gap: .38rem }
+  .ranking-chart .rank-name small { font-size: .7rem }
+  .ranking-chart .rank-track { min-height: 2.45rem }
+  .ranking-chart .rank-track i { height: .68rem }
+  .ranking-chart b { font-size: .84rem }
   .board-section table { min-width: 36rem }
   .table-wrap th:nth-child(2) { position: sticky; left: 0; z-index: 1; box-shadow: 1px 0 var(--line) }
   .table-wrap th:nth-child(2) { white-space: normal; min-width: 7.2rem; max-width: 9rem }

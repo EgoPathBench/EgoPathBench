@@ -51,12 +51,12 @@ fetch('examples.json').then(response => {
   document.getElementById('task-prompt').textContent = 'The example prompt could not be loaded. Please reload or view the released examples in the repository.';
 });
 
-// Values transcribed from the author-selected PDF, Figure 3. Rates use all
+// Values transcribed from the revised study, Figure 4. Rates use all
 // predictions and are parallel diagnostics, not a sequential funnel.
 const diagnostics = {
-  a2: [96.0, 28.9, 46.8, 16.7],
-  b2: [90.4, 4.8, 4.8, 1.0],
-  c: [88.0, 5.2, 6.5, 1.4]
+  a2: [96.4, 31.4, 49.4, 19.2],
+  b2: [91.1, 5.9, 8.4, 1.9],
+  c: [88.8, 6.3, 9.4, 2.3]
 };
 const diagnosticLabels = ['Legal first edge', 'Goal-consistent endpoint', 'Complete route legality', 'Joint route success'];
 function renderDiagnostics() {
@@ -85,7 +85,7 @@ function renderDiagnostics() {
 document.getElementById('diagnostic-task').addEventListener('change', renderDiagnostics);
 renderDiagnostics();
 
-// Table 3 of the author-selected July 25 PDF; no superseded aggregate result.
+// Revised study, Table 4.
 const transferResults = [
   ['VSI-Bench Route Planning · Full', 29.38, 33.51, 2],
   ['VSI-Bench Route Planning · Debiased', 20.18, 24.56, 2],
@@ -119,3 +119,19 @@ for (const [label, base, sft, precision] of transferResults) {
   row.append(heading, bars);
   document.getElementById('transfer-chart').appendChild(row);
 }
+
+const rollouts = {
+  couch: ['Contact · 3.17 m', 'Reached · 0.43 m'],
+  chair: ['Contact · 2.03 m', 'Reached · 0.49 m'],
+  cabinet: ['No support · 2.92 m', 'Reached · 0.38 m'],
+  table: ['Contact · 3.14 m', 'Contact · 0.30 m']
+};
+document.getElementById('rollout-scene').addEventListener('change', event => {
+  const scene = event.target.value;
+  const [base, sft] = rollouts[scene];
+  const image = document.getElementById('rollout-image');
+  image.src = 'assets/rollout-' + scene + '.webp';
+  image.alt = 'Paired routes to ' + event.target.selectedOptions[0].text + '. Base: ' + base + '. After fine-tuning: ' + sft + '.';
+  document.getElementById('base-outcome').textContent = base;
+  document.getElementById('sft-outcome').textContent = sft;
+});
